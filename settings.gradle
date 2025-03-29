@@ -11,4 +11,4 @@ plugins {
 }
 
 rootProject.name = 'tetrisgame'
-// include('app')
+include('app')
