@@ -20,6 +20,11 @@ public class TetrisController extends TetrisGame implements KeyListener {
     @Override
     public void on_frame_update() {
         if (game_status == 2 || game_status == 0) {
+            if (this.action_queue.contains(KeyEvent.VK_P) && game_status == 0) {
+                parse_input(KeyEvent.VK_P);
+                action_queue.remove((Object) KeyEvent.VK_P);
+            }
+
             return;
         }
 
@@ -30,7 +35,7 @@ public class TetrisController extends TetrisGame implements KeyListener {
         }
 
         this.parse_action_queue();
-        if (game_status == 0) {
+        if (this.game_status == 0) {
             return;
         }
         this.apply_gravity();
@@ -73,7 +78,7 @@ public class TetrisController extends TetrisGame implements KeyListener {
     private void parse_input(int key_code) {
         switch (key_code) {
             case KeyEvent.VK_UP:
-                move_block(0);
+                // move_block(0);
                 break;
 
             case KeyEvent.VK_DOWN:

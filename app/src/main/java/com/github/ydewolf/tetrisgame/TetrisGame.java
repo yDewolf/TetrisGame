@@ -19,8 +19,9 @@ public class TetrisGame {
     public boolean changed = false;
 
     private int size_x = 10;
-    private int size_y = 12;
+    private int size_y = 24;
     private int loss_judge_line = 2;
+    private int[] origin_pos = {0, loss_judge_line};
     private int[][] game_grid = new int[size_y][size_x];
 
     protected Block current_block;
@@ -74,7 +75,7 @@ public class TetrisGame {
                 break;
             
             case 2:
-                System.out.println("You lost the game");
+                System.out.println("You lost");
                 break;
             
             case 3:
@@ -146,6 +147,8 @@ public class TetrisGame {
 
     public void next_block() {
         this.current_block = this.block_queue.get(0);
+        this.current_block.pos = this.origin_pos;
+
         this.block_queue.remove(0);
         gen_block_queue();
         changed = true;
@@ -309,9 +312,11 @@ public class TetrisGame {
     }
 
 
+    // Rendering
+
     public void update_console() {
         clear_console();
-        System.out.println(get_ui_string());
+        System.out.print(get_ui_string());
         changed = false;
     }
 
@@ -404,7 +409,7 @@ public class TetrisGame {
     }
 
     private void clear_console() {
-        System.out.print("\033[H\033[2J");
+        System.out.print("\033\143");
         System.out.flush();
     }
     // Insert block
